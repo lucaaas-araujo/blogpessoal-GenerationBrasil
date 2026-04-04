@@ -1,22 +1,27 @@
-import { IsNotEmpty } from "class-validator";
-import { Column, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { IsNotEmpty } from "class-validator"
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
+import { Tema } from "../../tema/entities/tema.entity"
 
-@Entity({name: 'tb_postagem'}) // É como se estivessemos criando a tabela no sql, mas aqui
-
+@Entity({name: "tb_postagens"})
 export class Postagem {
 
-  @PrimaryGeneratedColumn() // Cria uma chave primaria e auto incrementável
-  id!: number;
+    @PrimaryGeneratedColumn()    
+    id!: number
 
-  @IsNotEmpty() // Validação para não permitir que o campo seja vazio
-  @Column({length: 100, nullable: false}) // Cria uma coluna do tipo varchar(100) e não permite nulo
-  titulo!: string;
+    @IsNotEmpty()
+    @Column({length: 100, nullable: false})
+    titulo!: string
 
-
-    @IsNotEmpty() // Validação para não permitir que o campo seja vazio
+    @IsNotEmpty()
     @Column({length: 1000, nullable: false})
-  texto!: string;
+    texto!: string
 
-  @UpdateDateColumn() // Cria uma coluna chamada date que é uma atualização da postagem
-  data!: Date;
+    @UpdateDateColumn()
+    data!: Date
+    
+    @ManyToOne(() => Tema, (tema) => tema.postagem, {
+        onDelete: "CASCADE"
+    })
+    tema!: Tema
+
 }
