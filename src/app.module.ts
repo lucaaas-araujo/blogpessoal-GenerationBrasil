@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { Usuario } from './usuario/entities/usuario.entity';
 import { UsuarioModule } from './usuario/usuario.module';
 import { ConfigModule } from '@nestjs/config';
+import { DevService } from './data/services/dev.service';
 import { ProdService } from './data/services/prod.service';
 
 @Module({
